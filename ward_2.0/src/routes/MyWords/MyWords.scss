@@ -1,0 +1,92 @@
+@import '../../styles/variables.scss';
+
+.my-words {
+    padding: 20px;
+    border-radius: 20px;
+    background-color: $white;
+
+    &__title {
+        margin-bottom: 10px;
+        color: $dynamic-black;
+        font: 400 42px/56px $primary-font;
+    }
+
+    &__content {
+        display: grid;
+        align-items: flex-start;
+        column-gap: 30px;
+
+        grid-template-columns: 1fr 1fr;
+    }
+
+    &__search {
+        position: sticky;
+        top: 0;
+        margin-bottom: 10px;
+    }
+
+    &__details {
+        position: sticky;
+        top: 0;
+        display: flex;
+        min-height: 390px;
+        padding: 15px;
+        border-radius: 10px;
+        background-color: $lynx-white;
+    }
+
+    &__details-wrapper {
+        position: relative;
+        flex-grow: 1;
+        padding: 15px;
+        border-radius: 10px;
+
+        &--active {
+            background-color: $white;
+        }
+    }
+
+    &__details-label {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        color: $more-than-a-week;
+        text-align: center;
+        font: 400 16px/24px 'Jost', sans-serif;
+        transform: translate(-50%, -50%);
+        user-select: none;
+    }
+}
+
+.words-search {
+    padding: 15px;
+    border-radius: 10px;
+    background-color: $lynx-white;
+
+    &__input {
+        display: block;
+        width: 100%;
+        height: 40px;
+        padding: 0 15px;
+        border: 2px solid transparent;
+        border-radius: 10px;
+        background: $white;
+        color: $dynamic-black;
+        font: 400 20px/336px $primary-font;
+        transition: border-color 400ms;
+
+        &::placeholder {
+            color: $more-than-a-week;
+        }
+
+        &:hover {
+            border-color: $satic-pink;
+        }
+
+        &:focus,
+        &:focus-visible {
+            outline: 0;
+            border-color: $tulip;
+        }
+    }
+}

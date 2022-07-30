@@ -1,0 +1,104 @@
+@import '../../../../styles/variables.scss';
+
+.words-list {
+    &__word {
+        margin-bottom: 10px;
+        padding: 15px;
+        border-radius: 10px;
+        background-color: $lynx-white;
+        transition: background-color 400ms;
+
+        &:last-child {
+            margin: 0;
+        }
+
+        &:hover {
+            .words-list__remove-btn {
+                width: 40px;
+                margin-left: 10px;
+            }
+        }
+
+        &--status-known {
+            background-color: $vaporwave-pool;
+        }
+
+        &--status-unknown {
+            background-color: $tulip;
+        }
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__word-title {
+        color: $dynamic-black;
+        font: 400 16px/24px $primary-font;
+    }
+
+    &__buttons {
+        display: flex;
+        justify-content: center;
+    }
+
+    &__knowledge-buttons {
+        display: flex;
+        align-items: center;
+        margin-right: 10px;
+        column-gap: 10px;
+    }
+
+    &__known,
+    &__unknown {
+        display: block;
+        width: 40px;
+        height: 40px;
+        border: none;
+        border-radius: 10px;
+        background-position: center;
+        background-size: 25px 25px;
+        background-repeat: no-repeat;
+        cursor: pointer;
+        background-color: $white;
+    }
+
+    &__known {
+        background-image: url('https://res.cloudinary.com/drxhx6l44/image/upload/v1659037119/ward_2.0/green-emoji_qkfkx2.svg');
+    }
+
+    &__unknown {
+        background-image: url('https://res.cloudinary.com/drxhx6l44/image/upload/v1659037119/ward_2.0/pink-emoji_sh2h6l.svg');
+    }
+
+    &__remove-btn,
+    &__more-info {
+        height: 40px;
+        border: none;
+        border-radius: 10px;
+        background-color: $white;
+        cursor: pointer;
+    }
+
+    &__more-info {
+        padding: 0 10px;
+        color: $more-than-a-week;
+        font: 400 16px/40px $primary-font;
+        transition: color 400ms;
+
+        &:hover {
+            color: $dynamic-black;
+        }
+    }
+
+    &__remove-btn {
+        width: 0;
+        padding: 0;
+        background-image: url('https://res.cloudinary.com/drxhx6l44/image/upload/v1659035073/ward_2.0/close-icon_q6qlpi.svg');
+        background-position: center;
+        background-repeat: no-repeat;
+        transition: color 400ms, width 400ms;
+    }
+}
