@@ -19,6 +19,7 @@ const MyWords = ({ storeWords }) => {
 
   const onPassWord = (word) => {
     setWordPreview(word);
+    setModalPosition(0);
   };
 
   const getPercentage = (sum, part) => {
