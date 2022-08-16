@@ -1,6 +1,9 @@
 @import '../../../../styles/variables.scss';
 
 .words-list {
+    overflow-y: auto;
+    max-height: 470px;
+
     &__word {
         margin-bottom: 10px;
         padding: 15px;
@@ -58,11 +61,11 @@
         height: 40px;
         border: none;
         border-radius: 10px;
+        background-color: $white;
         background-position: center;
         background-size: 25px 25px;
         background-repeat: no-repeat;
         cursor: pointer;
-        background-color: $white;
     }
 
     &__known {
@@ -83,6 +86,7 @@
     }
 
     &__more-info {
+        min-width: 40px;
         padding: 0 10px;
         color: $more-than-a-week;
         font: 400 16px/40px $primary-font;
@@ -90,6 +94,10 @@
 
         &:hover {
             color: $dynamic-black;
+        }
+
+        &--mobile {
+            display: none;
         }
     }
 
@@ -100,5 +108,21 @@
         background-position: center;
         background-repeat: no-repeat;
         transition: color 400ms, width 400ms;
+    }
+}
+
+@media (max-width: 600px) {
+    .words-list {
+        height: 390px;
+
+        &__more-info {
+            &--desktop {
+                display: none;
+            }
+
+            &--mobile {
+                display: inline;
+            }
+        }
     }
 }
