@@ -6,10 +6,12 @@ const WordDetails = ({ word }) => (
     <p>{word.transcription}</p>
     <p>{word.word}</p>
 
-    <div>
-      <p>Example:</p>
-      <p>{word.example}</p>
-    </div>
+    {word.example && (
+      <div>
+        <p>Example:</p>
+        <p><i>"{word.example}"</i></p>
+      </div>
+    )}
   </div>
 );
 

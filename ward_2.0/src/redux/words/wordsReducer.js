@@ -4,12 +4,14 @@ import wordsActions from './wordsActions';
 
 const updateWordStatus = (state, action, status) => {
   state.map(word => {
-    if (word.id === action.payload) {
-      word.status = status;
+    const newWord = word;
+
+    if (newWord.id === action.payload) {
+      newWord.status = status;
     }
   
-    return word;
-  })
+    return newWord;
+  });
 };
 
 const wordsReducer = createReducer(data || [], {

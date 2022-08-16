@@ -1,18 +1,11 @@
 import classNames from "classnames";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import wordsActions from "../../../../redux/words/wordsActions";
 import "./WordsList.scss";
 
-const WordsList = (state) => {
-  const { words, onRemoveWord, onMarkAsKnown, onMarkAsUnknown, wordPreview, onPassWord } = state;
-
-  const onRemoveWordHandler = (id) => {
-    onRemoveWord(id);
-
-    if (wordPreview.id === id) {
-      onPassWord(null);
-    }
-  };
+const WordsList = ({ onPassWord }) => {
+  const dispatch = useDispatch();
+  const words = useSelector(state => state.words);
 
   return (
     <ul className="words-list">
@@ -28,19 +21,24 @@ const WordsList = (state) => {
             <p className="words-list__word-title">{word.translation}</p>
             <div className="words-list__buttons">
               <div className="words-list__knowledge-buttons">
-                <button onClick={() => onMarkAsKnown(word.id, 'known')} className="words-list__known" />
-                <button onClick={() => onMarkAsUnknown(word.id, 'unknown')} className="words-list__unknown" />
+                <button
+                  onClick={() => dispatch(wordsActions.markAsKnown(word.id))}
+                  className="words-list__known"
+                  title="I know this word"
+                />
+                <button
+                  onClick={() => dispatch(wordsActions.markAsUnknown(word.id))}
+                  className="words-list__unknown"
+                  title="I don't know this word"
+                />
               </div>
               <button
                 onClick={() => onPassWord(word)}
                 className="words-list__more-info"
               >
-                More info
+                <span className="words-list__more-info--desktop">More info</span>
+                <span className="words-list__more-info--mobile">?</span>
               </button>
-              <button
-                onClick={() => onRemoveWordHandler(word.id)}
-                className="words-list__remove-btn"
-              />
             </div>
           </div>
         </li>
@@ -49,14 +47,4 @@ const WordsList = (state) => {
   );
 };
 
-const mapStateToProps = state => ({
-  words: state.words
-});
-
-const mapDispatchToProps = {
-  onRemoveWord: wordsActions.removeWord,
-  onMarkAsKnown: wordsActions.markAsKnown,
-  onMarkAsUnknown: wordsActions.markAsUnknown,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(WordsList);
+export default WordsList;
