@@ -2,9 +2,9 @@ import "./WordDetails.scss";
 
 const WordDetails = ({ word }) => (
   <div className="word-details">
-    <h2>{word.translation}</h2>
+    <h2>{word.word}</h2>
     <p>{word.transcription}</p>
-    <p>{word.word}</p>
+    <p>{word.translation}</p>
 
     {word.example && (
       <div>

@@ -1,12 +1,16 @@
-import { connect } from "react-redux";
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../../firebaseConfig';
 import classNames from "classnames";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
-import WordsList from "./components/WordsList/WordsList";
+import { WordsList } from './components/WordsList/WordsList';
 import WordDetails from "./components/WordDetails/WordDetails";
-import "./MyWords.scss";
+import "./Quiz.scss";
 
-const MyWords = ({ storeWords }) => {
+const Quiz = () => {
+  const wordsCollection = collection(db, 'words');
+  const [storeWords, setWordsCollection] = useState([]);
+
   const knownWordsCount = storeWords.filter(word => word.status === 'known').length;
   const unknownWordsCount = storeWords.filter(word => word.status === 'unknown').length;
   const markedWodsCount = knownWordsCount + unknownWordsCount;
@@ -30,14 +34,44 @@ const MyWords = ({ storeWords }) => {
     return Math.round(part * 100 / sum);
   };
 
+  const getWords = async () => {
+    const data = await getDocs(wordsCollection);
+    const normalizedData = data.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    setWordsCollection(normalizedData);
+  };
+
+  const updateWordStatus = (wordId, status) => {
+    const updatedWords = storeWords.map(word => {
+      if (word.id === wordId) {
+        const newWord = {
+          ...word,
+          status,
+        };
+
+        return newWord;
+      }
+
+      return word;
+    });
+
+    setWordsCollection(updatedWords);
+  };
+
+  useEffect(() => {
+    getWords();
+  }, []);
+
   return (
     <div className="my-words">
-      <h2 className="my-words__title">My words</h2>
-
       <div className="my-words__content">
         <div className="my-words__words">
           <WordsList
-            wordPreview={wordPreview}
+            words={storeWords}
+            updateWordStatus={updateWordStatus}
             onPassWord={onPassWord}
           />
         </div>
@@ -121,8 +155,4 @@ const MyWords = ({ storeWords }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  storeWords: state.words,
-});
-
-export default connect(mapStateToProps)(MyWords);
+export default Quiz;

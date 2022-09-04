@@ -1,12 +1,7 @@
 import classNames from "classnames";
-import { useSelector, useDispatch } from "react-redux";
-import wordsActions from "../../../../redux/words/wordsActions";
 import "./WordsList.scss";
 
-const WordsList = ({ onPassWord }) => {
-  const dispatch = useDispatch();
-  const words = useSelector(state => state.words);
-
+export const WordsList = ({ words, updateWordStatus, onPassWord }) => {
   return (
     <ul className="words-list">
       {words.map((word) => (
@@ -18,16 +13,16 @@ const WordsList = ({ onPassWord }) => {
           key={word.id}
         >
           <div className="words-list__item">
-            <p className="words-list__word-title">{word.translation}</p>
+            <p className="words-list__word-title">{word.word}</p>
             <div className="words-list__buttons">
               <div className="words-list__knowledge-buttons">
                 <button
-                  onClick={() => dispatch(wordsActions.markAsKnown(word.id))}
+                  onClick={() => updateWordStatus(word.id, 'known')}
                   className="words-list__known"
                   title="I know this word"
                 />
                 <button
-                  onClick={() => dispatch(wordsActions.markAsUnknown(word.id))}
+                  onClick={() => updateWordStatus(word.id, 'unknown')}
                   className="words-list__unknown"
                   title="I don't know this word"
                 />
@@ -46,5 +41,3 @@ const WordsList = ({ onPassWord }) => {
     </ul>
   );
 };
-
-export default WordsList;
