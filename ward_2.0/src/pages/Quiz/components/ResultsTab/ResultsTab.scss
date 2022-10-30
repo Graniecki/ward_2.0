@@ -1,0 +1,50 @@
+.results {
+    display: flex;
+    column-gap: 10px;
+
+    &__cell {
+        display: flex;
+        overflow: hidden;
+        flex-direction: column;
+        width: 100px;
+        height: 70px;
+        border-radius: 10px;
+        background: rgba(248,248,247,0.5);
+    }
+
+    &__title {
+        padding: 2px 5px;
+        background-color: #ffd280;
+        color: white;
+        text-align: center;
+
+        &--known {
+            background-color: #97eab9;
+        }
+
+        &--unknown {
+            background-color: #ff868e;
+        }
+    }
+
+    &__value {
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 990px) {
+    .results {
+        position: fixed;
+        bottom: 50px;
+        left: 50%;
+        justify-content: center;
+        transform: translateX(-50%);
+
+        &__value {
+            background: white;
+        }
+    }
+}

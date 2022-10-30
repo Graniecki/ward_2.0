@@ -5,6 +5,7 @@ import './Vocabulary.scss';
 
 export const Vocabulary = () => {
   const wordsCollection = collection(db, 'words');
+  // const wordsCollection = collection(db, 'test');
 
   const wordInput = useRef(null);
   const translationInput = useRef(null);
@@ -70,33 +71,9 @@ export const Vocabulary = () => {
     }
   };
 
-  const secondsToDate = (seconds) => {
-    const milliseconds = seconds * 1000;
-    const zeroUTCDate = new Date(milliseconds).toISOString();
-
-    return new Date(zeroUTCDate);
-  };
-
   useEffect(() => {
     getWords();
   }, []);
-
-
-
-
-
-  const oneDay = 24 * 60 * 60 * 1000; // if difference <= oneDay then add new word label
-                                      // currentDate - createdBy <= oneDay
-                                      
-
-  // console.log(words[1]);
-
-  const seconds = 1662228844;
-
-  // console.log(new Date(seconds * 1000).toISOString());
-
-
-
 
   return (
     <div className='vocabulary'>
@@ -107,7 +84,7 @@ export const Vocabulary = () => {
               key={word.id}
               className='vocabulary__word'
             >
-              {word.translation}
+              {word.word}
             </div>
           ))}
         </div>
@@ -139,7 +116,7 @@ export const Vocabulary = () => {
                 value={translation}
                 onChange={(event) => onInputChange(event, setTranslation)}
                 type="text"
-                placeholder='Translation*'
+                placeholder='Translation or explanation*'
               />
             </div>
             <div className='vocabulary__form-input-wrapper'>

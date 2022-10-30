@@ -1,19 +1,30 @@
 import classNames from "classnames";
 import "./WordsList.scss";
 
-export const WordsList = ({ words, updateWordStatus, onPassWord }) => {
+export const WordsList = ({ words, type, updateWordStatus, onPassWord }) => {
+  const today = new Date();
+  const newestRange = 72; // 3 days
+
+  const isNewWord = (createdDate) => {
+    const milliseconds = createdDate * 1000;
+    const hoursDifference = (today - milliseconds) / 1000 / 3600;
+
+    return !(hoursDifference > newestRange);
+  };
+
   return (
     <ul className="words-list">
       {words.map((word) => (
         <li
           className={classNames("words-list__word", {
             "words-list__word--status-known": word.status === "known",
-            "words-list__word--status-unknown": word.status === "unknown"
+            "words-list__word--status-unknown": word.status === "unknown",
+            "words-list__word--status-new": isNewWord(word.createdDate.seconds),
           })}
           key={word.id}
         >
           <div className="words-list__item">
-            <p className="words-list__word-title">{word.word}</p>
+            <p className="words-list__word-title">{type === 'native' ? word.translation : word.word}</p>
             <div className="words-list__buttons">
               <div className="words-list__knowledge-buttons">
                 <button
